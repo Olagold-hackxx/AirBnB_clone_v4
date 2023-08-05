@@ -55,21 +55,32 @@ $('document').ready(function () {
 	placeSearch('{}');
 	let check = [];
 	let checkName = [];
-	$('INPUT[type="checkbox"]').change(function () {
-		if ($(this).is(":checked")) {
-			check.push($(this).attr("data-id"));
-            checkName.push($(this).attr("data-name"));
+	let checkState = [];
+	let checkStateName = [];
+	let checkCity = [];
+	let checkCityName = [];
+	function checkbox(idList, names, filter, appendArea) {
+		$('INPUT[type="checkbox"].' + filter).change(function () {
+			if ($(this).is(":checked")) {
+				idList.push($(this).attr("data-id"));
+				names.push($(this).attr("data-name"));
+			}
+			else {
+				let index = check.indexOf($(this).attr("data-id"));
+				idList.splice(index, 1);
+				index = names.indexOf($(this).attr("data-name"));
+				names.splice(index, 1);
+			}
+			$('DIV.' + appendArea +  ' H4').text(names.join(", "));
+			});
 		}
-		else {
-			let index = check.indexOf($(this).attr("data-id"));
-			check.splice(index, 1);
-			index = checkName.indexOf($(this).attr("data-name"));
-			checkName.splice(index, 1);
-		}
-		$('DIV.amenities H4').text(checkName.join(", "));
-		});
+	checkbox(check, checkName, 'amenity', 'amenities');
+	checkbox(checkState, checkStateName, 'state', 'locations');
+	checkbox(checkCity, checkCityName, 'city', 'locations');
+
+
 	$('BUTTON').on('click', function () {
 		$('SECTION ARTICLE').remove();
-		placeSearch(JSON.stringify({"amenities": check}));
+		placeSearch(JSON.stringify({"amenities": check, "states": checkState, "cities": checkCity }));
 	})
 });

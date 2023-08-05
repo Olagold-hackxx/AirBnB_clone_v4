@@ -50,13 +50,15 @@ button:hover {
 	height: 100%;
     width: 25%;
 }
-.amenities h4 {
+div h4 {
 	height: 16px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-
+input[type="checkbox"] {
+	margin-right: 10px;
+}
 .popover {
     visibility: hidden;
     width: 100%;
