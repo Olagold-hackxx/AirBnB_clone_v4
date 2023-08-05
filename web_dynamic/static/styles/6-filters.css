@@ -47,9 +47,21 @@ button:hover {
     border-right: 1px solid #DDDDDD;
 }
 .amenities {
+<<<<<<< HEAD
     height: 100%;
     width: 25%;
 }
+=======
+	height: 100%;
+    width: 25%;
+}
+.amenities h4 {
+	height: 16px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+>>>>>>> dynamic
 
 .popover {
     visibility: hidden;
@@ -68,6 +80,7 @@ button:hover {
     width: 0px;
 }
 
+<<<<<<< HEAD
 .amenities h4 {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -76,6 +89,8 @@ button:hover {
     white-space: nowrap;
 }
 
+=======
+>>>>>>> dynamic
 .amenities .popover {
     padding: 10px 0;
     margin-left: -5px;
@@ -109,3 +124,7 @@ button:hover {
 .locations:hover .popover {
     visibility: visible;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> dynamic
