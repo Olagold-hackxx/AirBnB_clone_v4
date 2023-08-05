@@ -9,3 +9,15 @@ body .container {
     max-width: 1000px;
     margin: 30px auto;
 }
+.reviews {
+	margin-top: 40px;
+	width: 100%;
+}
+
+.review_item {
+	margin-bottom: 10px;
+}
+
+.review_text {
+	margin: 0px;
+}

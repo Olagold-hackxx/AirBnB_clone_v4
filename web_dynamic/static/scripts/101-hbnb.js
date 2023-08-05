@@ -54,21 +54,24 @@ $('document').ready(function () {
 					</div>
 				</article>`;
 					$('SECTION.places').append(placeHtml);
-					for (const review of place.reviews) {
-						let username;
-						const url = "http://localhost:5001/api/v1/user/" + review.user_id;
-						$.get(url, function(data) {
-							username = data.first_name + " " + data.last_name
-						});
-						const reviewHtml = `<li>
-								<div class="review_item">
-									<h3>From ${username} the ${review.updated_at}</h3>
-									<p class="review_text">${review.text}</p>
-								</div>
-							</li>`
-						$('DIV.reviews UL').append(reviewHtml)
+					const reviewUrl = "http://localhost:5001/api/v1/places/" + place.id + "/reviews";
+					$.get(url, function(reviews) {
+						for (const review of reviews) {
+							let username;
+							const userUrl = "http://localhost:5001/api/v1/places/" + review.user_id;
+							$.get(url, function(data) {
+								username = data.first_name + " " + data.last_name;
+							});
+							const reviewHtml = `<li>
+									<div class="review_item">
+										<h3>From ${username} the ${review.updated_at}</h3>
+										<p class="review_text">${review.text}</p>
+									</div>
+								</li>`;
+							$('DIV.reviews UL').append(reviewHtml);
+						}
+					});
 					}
-				}
 		}});
 	}
 	placeSearch('{}');
