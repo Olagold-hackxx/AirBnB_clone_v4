@@ -110,3 +110,6 @@ input[type="checkbox"] {
     visibility: visible;
 }
 
+div.reviews span {
+	position: relative;
+}
