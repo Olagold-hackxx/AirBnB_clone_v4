@@ -111,5 +111,8 @@ input[type="checkbox"] {
 }
 
 div.reviews span {
-	position: relative;
+	position: absolute;
+	right: 0%;
+	top: 40px;
+	color: red;
 }

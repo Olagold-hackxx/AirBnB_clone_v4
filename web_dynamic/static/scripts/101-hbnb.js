@@ -39,7 +39,7 @@ function placeSearch (filter) {
 				</div>
 				<div class="reviews">
 					<h2 class="article_subtitle">Reviews</h2>
-					<span id=${place.id}>show</span>
+					<span class="reviewToggler" id=${place.id}>show</span>
 					<ul></ul>
 				</div>
 				</article>`;
@@ -68,19 +68,19 @@ function getReview(placeId) {
 	const reviewUrl = "http://localhost:5001/api/v1/places/" + placeId + "/reviews";
 		$.get(reviewUrl, function(reviews) {
 			for (const review of reviews) {
-				let userName;
 				const userUrl = "http://localhost:5001/api/v1/users/" + review.user_id;
-				userName = $.get(userUrl, function(data) {
+				$.get(userUrl, function(data) {
 					let username = data.first_name + " " + data.last_name;
 					console.log(username);
-					return username
+					const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+					const reviewDate = new Date(review.updated_at).toLocaleDateString('en-US', dateOptions);
+					const reviewHtml = `<li>
+						<div class="review_item">
+						<h3>From ${username} on the ${reviewDate}</h3>
+						<p class="review_text">${review.text}</p>
+						</div></li>`;
+					$('DIV.reviews #' + `${placeId}` + '~ UL').append(reviewHtml);
 				});
-				const reviewHtml = `<li>
-					<div class="review_item">
-					<h3>From ${userName} the ${review.updated_at}</h3>
-					<p class="review_text">${review.text}</p>
-					</div></li>`;
-					$('DIV.reviews UL').append(reviewHtml);
 			}
 			});
 }
@@ -99,15 +99,14 @@ $('document').ready(function () {
 
 
 	placeSearch('{}');
-	$('.reviews SPAN').on('click', function () {
+	$(document).on( "click",  ".reviewToggler" , function() {
 		if ($(this).text() === 'show') {
 			const place_id = $(this).attr('id');
 			getReview(place_id);
-			alert("works");
 			$(this).text('hide');
 		}
 		else {
-			$("#" + $(this).attr('id') + ' ~ UL LI').hide();
+			$("#" + $(this).attr('id') + ' ~ UL LI').remove();
 			$(this).text('show');
 		}
 	});
